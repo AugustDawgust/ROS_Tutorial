@@ -425,9 +425,11 @@ Now you should be able to see these red squares. We will learn more about what a
 
 <details>
 
-<hr>
 
 <summary><strong>3.2 Coordinate Conventions</strong></summary>
+
+<hr>
+
 
 Coordinate conventions are used to ensure consistent interpretation of spatial data (like position, velocity, etc.) across different systems. So for example, if I said a point was at position `(2, -3, 0.5)` relative to me, coordinate conventions would define which variable means "forward", which variable means "up" or "down", does the negative mean "left" or "right" etc.
 
