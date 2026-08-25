@@ -135,9 +135,9 @@ Then, click the blue icon in the bottom left corner. It should bring up this pag
 
 Click on attach to running container. You should see something like this.
 
-<img src="assets/select_mrg_tutorial.png" width="800"/>
+<img src="assets/container_names.png" width="800"/>
 
-Click `/mrg_tutorial`. If prompted to open a folder, select mrg_ws -> src. You should have something like this (without the answer folders).
+Click `/<your_username>_ros_tutorial_<version>`. If prompted to open a folder, select colcon_ws -> src. You should have something like this (without the answer folders).
 
 <img src="assets/code_ws.png" width="800"/>
 
