@@ -131,7 +131,7 @@ Click the extensions page on the left hand side and ensure dev containers extens
 
 Then, click the blue icon in the bottom left corner. It should bring up this page.
 
-<img src="assets/attach_to_container.png" width="800"/>
+<img src="assets/attach.png" width="800"/>
 
 Click on attach to running container. You should see something like this.
 
