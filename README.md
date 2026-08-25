@@ -125,9 +125,9 @@ If you haven't already, install VSCode. [Instructions Here](https://code.visuals
 
 <img src="assets/vscode_home.png" width="800"/>
 
-Click the extensions page on the left hand side and ensure Docker is installed. If not, install it.
+Click the extensions page on the left hand side and ensure dev containers extension is installed. If not, install it.
 
-<img src="assets/extensions.png" width="800"/>
+<img src="assets/dev_container.png" width="800"/>
 
 Then, click the blue icon in the bottom left corner. It should bring up this page.
 
