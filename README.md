@@ -32,17 +32,25 @@ Then click `Create Fork`. Repeat this process for the `ROS_Tutorial` repo as wel
 
 First, install Docker Desktop. [Installation Instructions](https://docs.docker.com/desktop/setup/install/mac-install/). Make sure that any time you want to work, you have Docker Desktop running in the background.
 
-**Note:** You will have to select the correct installation based on your macbook chip set (Intel/ Apple Silicone). If you have a M1, M2, M3, etc macbook, you are Apple Silicone.
+**Note:** You will have to select the correct installation based on your macbook chip set (Intel/Apple Silicon). If you have an M1, M2, M3, etc. macbook, you are Apple Silicon.
 
-To setup your environment (one time step), run:
-
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/):
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
-curl -O https://raw.githubusercontent.com/Jeff300fang/MRG_Docker/tutorial/mrg_tutorial_startup_mac.sh && bash mrg_tutorial_startup_mac.sh
+
+2. Install `qix`:
+```bash
+uv tool install git+https://github.gatech.edu/ASDL-Robotics/qix.git
 ```
+*(Alternatively, if you do not have uv: `pip install qix`)*
 
-You will be prompted to enter your github username. Please enter the github username 
-
-Reboot your machine.
+3. Clone your forked `ROS_Tutorial` repository and install the stack:
+```bash
+git clone https://github.com/<your-github-username>/ROS_Tutorial.git
+cd ROS_Tutorial
+qix stack install . --novnc
+```
 
 </details>
 
@@ -50,38 +58,42 @@ Reboot your machine.
 
 <hr>
 
-Open PowerShell or Windows Command Prompt in admin mode, run:
-```
+1. Open PowerShell or Windows Command Prompt in admin mode, run:
+```powershell
 wsl --install
 ```
 
-Launch Ubuntu by running `wsl` in PowerShell.
+2. Launch Ubuntu by running `wsl` in PowerShell. Ensure Docker is running (either inside WSL2 or via Docker Desktop with WSL2 integration enabled).
 
-For some computers, you may need to manually install Docker Desktop. [Installation Instructions](https://docs.docker.com/desktop/setup/install/windows-install/). If you are unsure if you need it, we recommend to install it anyways.
-
-Then, follow the steps in the Ubuntu setup guide.
+3. Follow the steps in the Ubuntu setup guide below from within your WSL terminal.
 
 <hr>
 
 </details>
 
-<details> <summary> <strong> Ubuntu</strong></summary>
+<details> <summary> <strong> Ubuntu / Linux</strong></summary>
 
 <hr>
 
-To setup your environment (one time step), run:
-
+1. Ensure Docker is installed and your user has permission to run Docker without sudo:
+```bash
+sudo usermod -aG docker $USER && newgrp docker
 ```
-curl -O https://raw.githubusercontent.com/Jeff300fang/MRG_Docker/tutorial/mrg_tutorial_startup.sh && bash mrg_tutorial_startup.sh
+
+2. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and `qix`:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv tool install git+https://github.gatech.edu/ASDL-Robotics/qix.git
 ```
 
-You will be prompted to enter your github username. Please enter the github username you forked the repositories with.
-
-Once the above command successfully finishes. Run
-
+3. Clone your forked `ROS_Tutorial` repository and install the stack:
+```bash
+git clone https://github.com/<your-github-username>/ROS_Tutorial.git
+cd ROS_Tutorial
+qix stack install . --novnc
 ```
-source ~/.bashrc && newgrp docker
-```
+*(Note: If you have an NVIDIA GPU, you can also add `--gpu` to enable GPU acceleration)*
+
 <hr>
 
 </details>
@@ -92,23 +104,17 @@ source ~/.bashrc && newgrp docker
 
 <hr>
 
-To start the docker container, run
+To enter the container shell, run:
 
-```
-start_tutorial_docker
-```
-
-Then to bootstrap the workspace, run
-
-```
-bootstrap_ws
+```bash
+qix stack enter ros-tutorial
 ```
 
-This command only needs to be run for the first time OR when new packages are introduced OR when the docker container is rebuilt.
+*(This command will automatically start the container if it is stopped and drop you into a bash terminal inside the container).*
 
-To access the container's GUI, open `localhost:6080` in your local browser.
+To access the container's desktop GUI, open `http://localhost:8080/vnc.html` in your web browser.
 
-To start a 6 pane terminal (recommended), run `tmuxp load /root/.tmuxp/tmuxp_config.yaml`. To exit, run `tmux kill-session`
+To start a multi-pane terminal session (optional), run `tmux` or `tmuxp`.
 
 <hr>
 
@@ -121,27 +127,22 @@ To start a 6 pane terminal (recommended), run `tmuxp load /root/.tmuxp/tmuxp_con
 
 We **highly** recommend using Visual Studio Code (VSCode) for all coding. All senior members will be familiar with working in VSCode. The following instructions will assume that you are using VSCode.
 
-If you haven't already, install VSCode. [Instructions Here](https://code.visualstudio.com/). Make sure your container is running. See **Section 0.1** if you do not. Then, open VSCode.
+If you haven't already, install VSCode. [Instructions Here](https://code.visualstudio.com/). Make sure your container is running (see **Section 0.1**). Then, open VSCode.
 
 <img src="assets/vscode_home.png" width="800"/>
 
-Click the extensions page on the left hand side and ensure Docker is installed. If not, install it.
+Click the extensions page on the left hand side and ensure the **Dev Containers** (or **Docker**) extension is installed.
 
 <img src="assets/extensions.png" width="800"/>
 
-Then, click the blue icon in the bottom left corner. It should bring up this page.
+Then, click the remote icon in the bottom left corner (or press `Cmd+Shift+P` / `Ctrl+Shift+P` and type `Attach to Running Container...`).
 
 <img src="assets/attach_to_container.png" width="800"/>
 
-Click on attach to running container. You should see something like this.
+Select your running container (named `<your_username>_ros-tutorial_v26-08-1`). When prompted to open a folder, select:
+`/home/ros-tutorial/colcon_ws/src`
 
-<img src="assets/select_mrg_tutorial.png" width="800"/>
-
-Click `/mrg_tutorial`. If prompted to open a folder, select mrg_ws -> src. You should have something like this (without the answer folders).
-
-<img src="assets/code_ws.png" width="800"/>
-
-You can now click through each folder and see each file.
+You can now click through each folder and edit files directly within the container.
 
 <hr>
 
@@ -151,10 +152,11 @@ You can now click through each folder and see each file.
 
 <hr>
 
-Each topic will give a rough description of the task and there will be an associated file in ```ROS_Tutorial/student_code/student_code/topic_{topic #}/question_{topic #}_{section #}.py```. So for example, if you were working on ```Topic 1.2```, you would be accessing the file ```ROS_Tutorial/student_code/student_code/topic_1/question_1_2.py```
+Each topic will give a rough description of the task and there will be an associated file in ```ROS_Tutorial/student_code/student_code/topic_{topic #}/question_{topic #}_{section #}.py```. So for example, if you were working on ```Topic 1.2```, you would be accessing the file ```ROS_Tutorial/student_code/student_code/topic_1/question_1_2.py```.
 
-Each section will also have an associated autograder. At any point you want to test your code, you will need to run these commands in your workspace directory. For this tutorial, the workspace directory refers to directory ```mrg_ws/```.
-```
+Each section will also have an associated autograder. At any point you want to test your code, you will need to run these commands in your workspace directory (`/home/ros-tutorial/colcon_ws` or `~/colcon_ws`):
+```bash
+cd ~/colcon_ws
 colcon build
 source install/setup.bash
 ros2 run autograder test_topic_{topic_number}_{topic_subsection}
@@ -310,11 +312,11 @@ Go to the file `question_1_4_client.py`. Correctly request a `yellow_buoy` from 
 
 **VNC (Virtual Network Computing)** is a graphical desktop-sharing system that allows you to access another desktop's enviornment over a network.
 
-In our case, we will be accessing the docker container's generated desktop environment. To do so, go into your web browser and type `localhost:6080`. This should bring you to a webpage that looks something like the below image.
+In our case, we will be accessing the docker container's generated desktop environment. To do so, open `http://localhost:8080/vnc.html` in your web browser. This should bring you to a webpage that looks something like the below image.
 
 <img src="assets/vnc_weblanding.png" alt="VNC web landing" width="800"/>
 
-Press connect and you should have access to your docker container's VNC.
+Press connect and you should have access to your docker container's desktop VNC.
 
 <hr>
 </details>
