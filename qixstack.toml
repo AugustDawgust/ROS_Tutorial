@@ -50,6 +50,9 @@ dependencies = [
     "pyserial",
     "numpy<2",
     "transforms3d",
+    "pigpio",
+    "Adafruit-Blinka",
+    "adafruit-circuitpython-icm20x",
 ]
 
 [tool.colcon.dependencies]
