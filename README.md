@@ -45,11 +45,10 @@ uv tool install git+https://github.gatech.edu/ASDL-Robotics/qix.git
 ```
 *(Alternatively, if you do not have uv: `pip install qix`)*
 
-3. Clone your forked `ROS_Tutorial` repository and install the stack:
+3. Clone your forked `ROS_Tutorial` repository and install the stack from your workspace directory (one directory above `ROS_Tutorial`):
 ```bash
 git clone https://github.com/<your-github-username>/ROS_Tutorial.git
-cd ROS_Tutorial
-qix stack install . --novnc
+qix stack install ROS_Tutorial --novnc
 ```
 
 </details>
@@ -86,11 +85,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv tool install git+https://github.gatech.edu/ASDL-Robotics/qix.git
 ```
 
-3. Clone your forked `ROS_Tutorial` repository and install the stack:
+3. Clone your forked `ROS_Tutorial` repository and install the stack from your workspace directory (one directory above `ROS_Tutorial`):
 ```bash
 git clone https://github.com/<your-github-username>/ROS_Tutorial.git
-cd ROS_Tutorial
-qix stack install . --novnc
+qix stack install ROS_Tutorial --novnc
 ```
 *(Note: If you have an NVIDIA GPU, you can also add `--gpu` to enable GPU acceleration)*
 
@@ -104,13 +102,16 @@ qix stack install . --novnc
 
 <hr>
 
-To enter the container shell, run:
+From one directory above `ROS_Tutorial`, run the following command on your host machine to enter the container shell:
 
 ```bash
 qix stack enter ros-tutorial
 ```
 
-*(This command will automatically start the container if it is stopped and drop you into a bash terminal inside the container).*
+**Note:**
+- Run this command from one directory above `ROS_Tutorial` on your host machine.
+- The argument is the stack name **`ros-tutorial`** (all lowercase, kebab-case as defined in `qixstack.toml`), rather than `ROS_Tutorial`.
+- This command will automatically start the container if it is stopped and drop you into a bash shell inside the container environment.
 
 To access the container's desktop GUI, open `http://localhost:8080/vnc.html` in your web browser.
 
