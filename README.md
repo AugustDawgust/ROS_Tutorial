@@ -132,16 +132,21 @@ If you haven't already, install VSCode. [Instructions Here](https://code.visuals
 
 <img src="assets/vscode_home.png" width="800"/>
 
-Click the extensions page on the left hand side and ensure the **Dev Containers** (or **Docker**) extension is installed.
+Click the extensions page on the left hand side and ensure the **Dev Containers** extension is installed. If not, install it.
 
-<img src="assets/extensions.png" width="800"/>
+<img src="assets/dev_container.png" width="800"/>
 
 Then, click the remote icon in the bottom left corner (or press `Cmd+Shift+P` / `Ctrl+Shift+P` and type `Attach to Running Container...`).
 
-<img src="assets/attach_to_container.png" width="800"/>
+<img src="assets/attach.png" width="800"/>
 
-Select your running container (named `<your_username>_ros-tutorial_v26-08-1`). When prompted to open a folder, select:
-`/home/ros-tutorial/colcon_ws/src`
+Select your running container (named `/<your_username>_ros-tutorial_<version>`, e.g., `/<your_username>_ros-tutorial_v26-08-1`).
+
+<img src="assets/container_names.png" width="800"/>
+
+If prompted to open a folder, select `/home/ros-tutorial/colcon_ws/src` (or `colcon_ws -> src`). You should have something like this (without the answer folders):
+
+<img src="assets/code_ws.png" width="800"/>
 
 You can now click through each folder and edit files directly within the container.
 
@@ -428,9 +433,11 @@ Now you should be able to see these red squares. We will learn more about what a
 
 <details>
 
-<hr>
 
 <summary><strong>3.2 Coordinate Conventions</strong></summary>
+
+<hr>
+
 
 Coordinate conventions are used to ensure consistent interpretation of spatial data (like position, velocity, etc.) across different systems. So for example, if I said a point was at position `(2, -3, 0.5)` relative to me, coordinate conventions would define which variable means "forward", which variable means "up" or "down", does the negative mean "left" or "right" etc.
 
