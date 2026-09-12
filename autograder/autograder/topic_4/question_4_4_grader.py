@@ -44,7 +44,10 @@ class Question_4_4_Grader(Node):
         process = subprocess.run(['ros2', 'topic', 'info', '-v', '/stinger/imu/data'],
                                    capture_output=True,
                                    text=True)
-        grader.verify_answer(lambda x: 'navsat_transform_node' in x, process.stdout, '4.4.b Correct IMU Remap', self)
+        process_rel = subprocess.run(['ros2', 'topic', 'info', '-v', '/stinger/imu/relative'],
+                                       capture_output=True,
+                                       text=True)
+        grader.verify_answer(lambda x: 'navsat_transform_node' in x or 'navsat_transform_node' in process_rel.stdout, process.stdout, '4.4.b Correct IMU Remap', self)
         process = subprocess.run(['ros2', 'topic', 'info', '-v', '/stinger/gps/fix'],
                                    capture_output=True,
                                    text=True)
