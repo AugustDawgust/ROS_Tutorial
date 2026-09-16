@@ -417,6 +417,169 @@ Now you should be able to see these red squares. We will learn more about what a
 
 </details>
 
+<details>
+<summary><strong>2.5 Foxglove</strong></summary>
+
+<hr>
+
+**Foxglove** is a visualization and debugging tool for robotics data. It allows you to inspect ROS2 topics, camera feeds, transforms, sensor data, plots, and raw messages from one interface.
+
+In the previous sections, you used `rqt_image_view` to visualize camera data and `rviz2` to visualize lidar data. Foxglove combines many of these debugging and visualization tools into a single workspace.
+
+The Foxglove Bridge is already installed in the tutorial container through `qixstack.toml`, so no additional ROS package installation is required.
+
+#### 2.5.a Starting the Simulation
+
+First, make sure the Stinger simulation is running. In a terminal, run:
+
+```bash
+ros2 launch stinger_bringup vehicle_sim.launch.py
+```
+
+Keep this terminal running.
+
+#### 2.5.b Starting the Foxglove Bridge
+
+Open a second terminal and run:
+
+```bash
+ros2 launch foxglove_bridge foxglove_bridge_launch.xml
+```
+
+The Foxglove Bridge connects the ROS2 system to Foxglove using a WebSocket connection. By default, the bridge listens on port `8765`.
+
+You can confirm that the bridge is running with:
+
+```bash
+ros2 node list
+```
+
+You should see the Foxglove Bridge node in the list of running ROS2 nodes.
+
+#### 2.5.c Connecting to Foxglove
+
+Open the Foxglove desktop application or the Foxglove web application in Chrome.
+
+Select **Open connection**, then select **Foxglove WebSocket**.
+
+For local development, enter:
+
+```text
+ws://localhost:8765
+```
+
+Then click **Open**.
+
+Once connected, Foxglove should display the ROS2 topics currently being published by the Stinger simulation.
+
+**Note:** The Foxglove Bridge is running inside the tutorial container. If `ws://localhost:8765` does not connect from your host computer, first verify that the bridge is still running and that port `8765` is accessible from the container.
+
+#### 2.5.d Viewing the Camera
+
+Foxglove uses **panels** to display different types of robotics data.
+
+Add an **Image** panel to your Foxglove layout. Select the Stinger camera topic:
+
+```text
+/stinger/camera_0/image_raw
+```
+
+You should see the same camera feed that you previously viewed using `rqt_image_view`.
+
+This demonstrates that the same ROS2 topic can be visualized using different tools without changing the publisher.
+
+#### 2.5.e Viewing LiDAR Data
+
+Add a **3D** panel to your Foxglove layout.
+
+Set the display frame to:
+
+```text
+base_link
+```
+
+Then enable the LiDAR scan topic:
+
+```text
+/scan
+```
+
+You should now be able to visualize the LiDAR data around the Stinger tug, similar to what you previously viewed in RViz2.
+
+#### 2.5.f Inspecting Raw ROS2 Messages
+
+Foxglove can also be used to inspect the data being published on ROS2 topics.
+
+Add a **Raw Messages** panel and select:
+
+```text
+/ground_truth/odometry
+```
+
+Expand the message fields and inspect values such as:
+
+- `pose`
+- `twist`
+- position
+- orientation
+- linear velocity
+- angular velocity
+
+This is similar to using:
+
+```bash
+ros2 topic echo /ground_truth/odometry
+```
+
+but allows you to inspect the data from a graphical interface.
+
+#### 2.5.g Plotting ROS2 Data
+
+Add a **Plot** panel.
+
+Using the `/ground_truth/odometry` topic, find and plot the Stinger's X and Y position values:
+
+```text
+pose.pose.position.x
+pose.pose.position.y
+```
+
+As the Stinger moves in simulation, observe how these values change over time.
+
+Plots are especially useful for debugging localization, controls, sensor outputs, and other continuously changing values.
+
+#### 2.5.h Creating a Foxglove Layout
+
+Arrange your Foxglove workspace so that you can view multiple sources of information at the same time. For example, create a layout containing:
+
+- an **Image** panel for the camera
+- a **3D** panel for LiDAR data
+- a **Raw Messages** panel for odometry
+- a **Plot** panel for position data
+
+Save the layout with a descriptive name such as:
+
+```text
+Stinger Simulation
+```
+
+Layouts make it easy to reopen the same debugging environment when working on later perception, localization, controls, and autonomy tasks.
+
+#### 2.5.i Foxglove vs. Other ROS2 Tools
+
+At this point, you have used several ROS2 visualization and debugging tools:
+
+- `ros2 topic echo` is useful for quickly viewing raw topic data from the terminal.
+- `rqt_image_view` is useful for quickly viewing image topics.
+- `rviz2` is useful for ROS-specific 3D visualization, transforms, robot models, and sensor data.
+- `Foxglove` is useful for combining images, 3D data, raw messages, and plots into one reusable workspace.
+
+You will continue seeing these tools throughout robotics development. There is not always one "correct" visualization tool. Choose the tool that makes the current debugging task easiest.
+
+<hr>
+
+</details>
+
 ## Topic 3: Conventions
 
 <details>
