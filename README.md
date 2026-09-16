@@ -45,9 +45,19 @@ uv tool install git+https://github.gatech.edu/ASDL-Robotics/qix.git
 ```
 *(Alternatively, if you do not have uv: `pip install qix`)*
 
-3. Clone your forked `ROS_Tutorial` repository and install the stack from your workspace directory (one directory above `ROS_Tutorial`):
+3. Clone your forked `ROS_Tutorial` repository:
 ```bash
 git clone https://github.com/<your-github-username>/ROS_Tutorial.git
+```
+
+4. Update the source code reference for `stinger-software` in the `qixstack.toml` to refer to your fork by altering the namespace variable from `gt-marine-robotics-group` to your GitHub username:
+
+```bash
+stinger-software = { server = "github.com", namespace = "<your-github-username>", name = "stinger-software", version = "main" }
+```
+
+5.  Install the stack from your workspace directory (one directory above `ROS_Tutorial`):
+```bash
 qix stack install ROS_Tutorial --novnc
 ```
 
@@ -88,7 +98,17 @@ uv tool install git+https://github.gatech.edu/ASDL-Robotics/qix.git
 3. Clone your forked `ROS_Tutorial` repository and install the stack from your workspace directory (one directory above `ROS_Tutorial`):
 ```bash
 git clone https://github.com/<your-github-username>/ROS_Tutorial.git
-qix stack install ROS_Tutorial --novnc
+```
+
+4. Update the source code reference for `stinger-software` in the `qixstack.toml` to refer to your fork by altering the namespace variable from `gt-marine-robotics-group` to your GitHub username:
+
+```bash
+stinger-software = { server = "github.com", namespace = "<your-github-username>", name = "stinger-software", version = "main" }
+```
+
+5.  Install the stack from your workspace directory (one directory above `ROS_Tutorial`):
+```bash
+qix stack install ROS_Tutorial
 ```
 *(Note: If you have an NVIDIA GPU, you can also add `--gpu` to enable GPU acceleration)*
 
